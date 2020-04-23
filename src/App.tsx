@@ -1,24 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { AppBar, Toolbar, Typography, Container } from '@material-ui/core';
+// @ts-ignore
+import styled from 'styled-components';
+// @ts-ignore
+import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import Pipelines from './Pipelines';
+import Pipeline from './Pipeline';
+import PipelineSteps from './PipelineSteps';
+
+const MarginTopContainer = styled(Container)`
+  margin-top: 2rem;
+`;
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <AppBar position="static">
+          <Toolbar>
+            <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
+              <Typography variant="h6">
+                Kubes CD
+              </Typography>
+            </Link>
+          </Toolbar>
+        </AppBar>
+        <MarginTopContainer>
+            <Switch>
+              <Route path="/:pipelineName/:commit">
+                <PipelineSteps />
+              </Route>
+              <Route path="/:pipelineName">
+                <Pipeline />
+              </Route>
+              <Route path="/">
+                <Pipelines />
+              </Route>
+            </Switch>
+        </MarginTopContainer>
+      </Router>
     </div>
   );
 }
