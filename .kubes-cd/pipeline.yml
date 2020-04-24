@@ -1,0 +1,22 @@
+steps:
+  - name: "Run tests"
+    image: busybox
+    branch: "!master"
+    commands: 
+      - sh 
+      - -c 
+      - echo "$HELLO_WORLD" && sleep 5
+    env:
+      - name: HELLO_WORLD
+        value: "This is a branch!"
+
+  - name: "Run linting"
+    image: busybox
+    branch: master
+    commands: 
+      - sh 
+      - -c 
+      - echo "$HELLO_WORLD" && sleep 5
+    env:
+      - name: HELLO_WORLD
+        value: "This is a the master branch!"
